@@ -4,7 +4,7 @@ import time
 
 def get_gas_price():
     api_key = os.getenv('ETHERSCAN_API_KEY')
-    url = f'https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey={api_key}'
+    url = f'https://api-sepolia.etherscan.io/api?module=gastracker&action=gasoracle&apikey={api_key}'
     response = requests.get(url)
     data = response.json()
     return data['result']['ProposeGasPrice']
