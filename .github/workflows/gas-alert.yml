@@ -1,11 +1,9 @@
 name: Sepolia Gas Alert
 
 on:
-  # Manual trigger so you can press “Run workflow” right now
-  workflow_dispatch:                    # :contentReference[oaicite:8]{index=8}
-  # Scheduled trigger every 5 minutes
+  workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'               # shortest allowed interval :contentReference[oaicite:9]{index=9}
+    - cron: '*/5 * * * *'
 
 jobs:
   alert:
@@ -18,9 +16,11 @@ jobs:
         with:
           python-version: '3.x'
 
-      - run: pip install requests
+      - name: Install dependencies
+        run: pip install -r requirements.txt    # installs python-dotenv + requests
 
-      - run: python sepolia_gas_bot.py
+      - name: Run bot script
+        run: python sepolia_gas_bot.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
