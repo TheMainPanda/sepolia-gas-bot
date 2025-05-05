@@ -3,7 +3,7 @@ name: Sepolia Gas Alert
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/5 * * * *'   # every 5 minutes :contentReference[oaicite:10]{index=10}
 
 jobs:
   alert:
@@ -17,11 +17,11 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt    # installs python-dotenv + requests
+        run: pip install -r requirements.txt
 
-      - name: Run bot script
+      - name: Run bot
         run: python sepolia_gas_bot.py
         env:
+          SEPOLIA_RPC_URL:   ${{ secrets.SEPOLIA_RPC_URL }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
-          ETHERSCAN_API_KEY:  ${{ secrets.ETHERSCAN_API_KEY }}
