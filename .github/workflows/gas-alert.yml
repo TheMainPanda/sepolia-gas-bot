@@ -1,0 +1,27 @@
+name: Sepolia Gas Alert
+
+on:
+  workflow_dispatch:           # allows manual runs
+  schedule:
+    - cron: '*/5 * * * *'       # every 5 minutes :contentReference[oaicite:8]{index=8}
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run bot
+        run: python sepolia_gas_bot.py
+        env:
+          SEPOLIA_RPC_URL:   ${{ secrets.SEPOLIA_RPC_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
