@@ -16,8 +16,8 @@ def get_sepolia_gas_prices():
     """
     url = (
         f"https://api-sepolia.etherscan.io/api"
-        f"?module=gastracker&action=gasoracle&apikey={ETHERSCAN_API_KEY}"
-    )  # Sepolia endpoint :contentReference[oaicite:4]{index=4}
+        f"?module=gastracker&action=sepolia_gas_tracker&apikey={ETHERSCAN_API_KEY}"
+    )
 
     resp = requests.get(url)
     data = resp.json()
@@ -30,7 +30,6 @@ def get_sepolia_gas_prices():
             "fast":    r["FastGasPrice"]
         }
     else:
-        # Print the human‑readable cause (e.g. "Invalid API Key")
         print("Etherscan returned result:", data.get("result"))
         raise ValueError(
             f"Etherscan API error: {data.get('message','No message')} — see printed result"
